@@ -17,7 +17,7 @@ doc_title: 'Deploying an alert stream mini-broker prototype'
 
 # Author names, ordered as a list. Each author name should be formatted as 'First Last'
 authors:
-    - 'Maria Patterson'
+    - 'Maria T. Patterson'
 
 # Current document revision date, YYYY-MM-DD
 # Only set this field if you need to manually fix the revision date;
@@ -40,11 +40,28 @@ copyright: '2018, AURA/LSST'
 description: 'An outline of how to run a pipeline for alert packaging, streaming, filtering, and consuming.'
 
 # Abstract, if available
-# abstract: >
-#           Write your paragraph
-#           here with multiple lines.
-#
-#           You can have multiple paragraphs too.
+abstract: >
+    Primary access to the Large Synoptic Survey Telescope (LSST) alert stream is
+    planned to be via endpoints accessed through "community brokers".
+    Community brokers are likely to provide additional services, e.g.
+    enriching alerts with additional data from other catalogs or providing event
+    classification, and to allow end-users to filter these enriched alerts.
+    Supplementary to these community brokers, the LSST will provide a basic
+    alert filtering service with limited capacity.
+    The service will only allow access to the contents of each alert, i.e., no
+    outside information can be used in a filter.
+
+    The Data Products Definition Document (LSE-163) describes how end-users
+    will build filters.
+    End-users will be able to write filters using simple code (likely written
+    as Python functions) or SQL-like queries.
+    The Data Management Systems Requirements document (LSE-61) gives the
+    requirements for the alert filtering service, namely DMS-REQ-0342
+    (existence of filtering service), DMS-REQ-0348 (pre-defined filters),
+    and DMS-REQ-0343 (performance requirements).
+    The filtering service is expected to support ``numBrokerUsers`` = 100
+    simultaneous connected users each allocated a bandwidth capable of
+    receiving ``numBrokerAlerts`` = 20 full alerts per visit.
 
 # URL where this document is published by Read the Docs. e.g. http://sqr-001.lsst.codes
 url: 'https://dmtn-081.lsst.io'
