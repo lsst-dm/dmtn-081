@@ -83,7 +83,8 @@ receiving ``numBrokerAlerts`` = 20 full alerts per visit.
 Pipeline outline
 ================
 
-The prototype mini-broker described here includes the following components:
+The prototype mini-broker described here includes the following components,
+investigated and benchmarked in DMTN-028 :cite:`DMTN-028`:
 
 * Mock alerts following the schema outlined in the DPDD, in Avro format
 * A mock alert producer generating and sending alerts at expected LSST scale
@@ -100,7 +101,7 @@ having 20 filters.
 The filters make simple magnitude cuts on the alerts, and each filter
 allows a maximum of 20 alerts per visit to pass the filter.
 Alerts that pass a filter are sent to a stream specific to that filter.
-Consumers can then subscribe to a specified filtered stream.
+Science users can then subscribe to a specified filtered stream.
 
 
 Deployment
@@ -111,7 +112,7 @@ containers.
 Below provides instructions for use with Docker Swarm, which deploys
 containers over a group of multiple machines joined in a cluster.
 These instructions may need to be altered to deploy the containers in another
-environment.
+environment (e.g., Kubernetes).
 Containers have been tested both on a single machine and on a cluster
 of machines running a Swarm.
 
