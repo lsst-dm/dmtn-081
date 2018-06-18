@@ -288,7 +288,7 @@ Alternatively, as a service in a Docker Swarm, run:
 
       docker service create \
               --name filtergroup1 \
-              --network kafkanet \
+              --network alert_stream_default \
               --constraint node.role==worker \
               -e PYTHONUNBUFFERED=0 \
               alert_stream python bin/filterStream.py full-stream 1 20
@@ -355,7 +355,7 @@ service, run the following:
 
     docker service create \
                   --name sender \
-                  --network kafkanet \
+                  --network alert_stream_default \
                   -v $PWD:/home/alert_stream/data:ro \
                   -e PYTHONUNBUFFERED=0 \
                   alert_stream python bin/sendAlertStream.py full-stream
