@@ -111,10 +111,14 @@ All components of the mini-broker prototype can be deployed in Docker
 containers.
 Below provides instructions for use with Docker Swarm, which deploys
 containers over a group of multiple machines joined in a cluster.
-These instructions may need to be altered to deploy the containers in another
-environment (e.g., Kubernetes).
-Containers have been tested both on a single machine and on a cluster
-of machines running a Swarm.
+Containers have been tested, on a single machine, on an AWS cluster
+of machines running a Swarm, and on Kubernetes.
+For Kubernetes scripts and instructions specifically
+for deployment on the NCSA infrastructure, see the
+kubernetes directory in the `alert_stream` repo as of the merge of
+branch tickets/DM-14838.
+These scripts will need to be modified when running on other
+infrastructure.
 
 The Docker Swarm used for development was built via a Docker for AWS
 cloud, consisting of ten m4.4xlarge machines
