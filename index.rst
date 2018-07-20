@@ -44,12 +44,6 @@
 
 .. TODO: Delete the note below before merging new content to the master branch.
 
-.. note::
-
-   **This technote is not yet published.**
-
-   An outline of how to run a pipeline for alert packaging, streaming, filtering, and consuming.
-
 .. Add content here.
 .. Do not include the document title (it's automatically added from metadata.yaml).
 
@@ -224,7 +218,7 @@ consuming the stream for the 10th filter, run:
   docker run -it --rm \
              --name=monitor010 \
              --network=alert_stream_default \
-             alert_stream python bin/monitorStream.py Filter010
+             alert_stream python bin/monitorStream.py kafka:9092 Filter010
 
 Output is directed to the screen.
 
@@ -237,7 +231,7 @@ To deploy the same process as a Swarm service, instead run:
           --network alert_stream_default \
           --constraint node.role==worker \
           -e PYTHONUNBUFFERED=0 \
-          alert_stream python bin/monitorStream.py Filter010
+          alert_stream python bin/monitorStream.py kafka:9092 Filter010
 
 
 Filters
@@ -261,7 +255,7 @@ For example, running
 
 .. code-block:: python
 
-    python bin/filterStream.py my-stream 1 10
+    python bin/filterStream.py kafka:9092 my-stream 1 10
 
 will deploy filters 1 through 10 in a group.
 Each group needs to read its own instance of the full stream.
@@ -284,7 +278,7 @@ run the following:
 
     docker run -it --rm \
                --network=alert_stream_default \
-               alert_stream python bin/filterStream.py full-stream 1 20
+               alert_stream python bin/filterStream.py kafka:9092 full-stream 1 20
 
 Alternatively, as a service in a Docker Swarm, run:
 
@@ -295,7 +289,7 @@ Alternatively, as a service in a Docker Swarm, run:
               --network alert_stream_default \
               --constraint node.role==worker \
               -e PYTHONUNBUFFERED=0 \
-              alert_stream python bin/filterStream.py full-stream 1 20
+              alert_stream python bin/filterStream.py kafka:9092 full-stream 1 20
 
 This constrains filter groups to worker nodes, separate from
 Kafka and Zookeeper.
@@ -350,7 +344,7 @@ a local directory of Avro files inside the container, run:
                --name=sender \
                -v $PWD:/home/alert_stream/data:ro \
                --network=alert_stream_default \
-               alert_stream python bin/sendAlertStream.py full-stream
+               alert_stream python bin/sendAlertStream.py kafka:9092 full-stream
 
 To alternatively deploy the alert producer as a Swarm
 service, run the following:
@@ -362,7 +356,7 @@ service, run the following:
                   --network alert_stream_default \
                   -v $PWD:/home/alert_stream/data:ro \
                   -e PYTHONUNBUFFERED=0 \
-                  alert_stream python bin/sendAlertStream.py full-stream
+                  alert_stream python bin/sendAlertStream.py kafka:9092 full-stream
 
 The local Avro files must be on the same node or otherwise
 accessible to the alert producer container.
